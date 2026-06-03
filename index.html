@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AWG Careers — Keep Growing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-primary: #0000FF;
+      --blue-mid:     #2B2BD5;
+      --blue-dark:    #16167F;
+      --blue-light:   #C1C1F1;
+      --cyan:         #11C3FB;
+      --gray-bg:      #F3F3F3;
+      --white:        #ffffff;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Rubik', sans-serif; color: var(--blue-dark); background: var(--white); overflow-x: hidden; }
+
+    /* NAVBAR */
+    nav { position: sticky; top: 0; z-index: 100; background: var(--blue-mid); padding: 0 2rem; height: 60px; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .nav-logo { font-weight: 900; font-size: 1.1rem; color: var(--white); text-decoration: none; white-space: nowrap; letter-spacing: 0.03em; }
+    .nav-logo span { color: var(--cyan); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,0.85); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--cyan); }
+    .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+    .lang-toggle { display: flex; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 2px; }
+    .lang-btn { background: none; border: none; color: rgba(255,255,255,0.7); font-family: 'Rubik', sans-serif; font-size: 0.8rem; font-weight: 700; padding: 4px 12px; border-radius: 16px; cursor: pointer; transition: all 0.2s; }
+    .lang-btn.active { background: var(--blue-primary); color: var(--white); }
+    .btn-site { background: transparent; border: 1.5px solid var(--cyan); color: var(--cyan); font-family: 'Rubik', sans-serif; font-size: 0.82rem; font-weight: 600; padding: 6px 16px; border-radius: 20px; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.2s; }
+    .btn-site:hover { background: var(--cyan); color: var(--blue-dark); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .hamburger span { display: block; width: 22px; height: 2px; background: var(--white); border-radius: 2px; }
+
+    /* HERO */
+    #hero { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%); min-height: 92vh; position: relative; overflow: hidden; display: flex; align-items: center; padding: 5rem 4rem 4rem; }
+    .blob { position: absolute; border-radius: 50%; pointer-events: none; }
+    .blob-1 { width: 420px; height: 420px; background: #E85672; top: -100px; right: -80px; opacity: 0.92; }
+    .blob-2 { width: 320px; height: 320px; background: #0A4A72; bottom: -110px; left: -90px; opacity: 0.88; }
+    .blob-3 { width: 180px; height: 180px; background: var(--blue-primary); top: 80px; right: 240px; opacity: 0.35; }
+    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .hero-tag { color: var(--cyan); font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+    .hero-tag::before { content: ''; display: block; width: 28px; height: 2px; background: var(--cyan); }
+    .hero-headline { font-size: clamp(3.8rem, 9vw, 7.5rem); font-weight: 900; line-height: 0.93; color: var(--white); text-transform: uppercase; margin-bottom: 1.5rem; }
+    .hero-headline .accent { color: var(--cyan); }
+    .hero-subtitle { color: rgba(255,255,255,0.82); font-size: 1.05rem; line-height: 1.65; max-width: 480px; margin-bottom: 2.5rem; }
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary { background: var(--cyan); color: var(--blue-dark); border: none; font-family: 'Rubik', sans-serif; font-size: 0.92rem; font-weight: 700; padding: 14px 28px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-primary:hover { background: #fff; }
+    .btn-outline { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.7); font-family: 'Rubik', sans-serif; font-size: 0.92rem; font-weight: 700; padding: 14px 28px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s; }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+    .gptw-badge { position: absolute; bottom: 2rem; right: 2rem; background: var(--white); border-radius: 10px; padding: 12px 18px; display: flex; align-items: center; gap: 12px; box-shadow: 0 6px 24px rgba(0,0,0,0.25); z-index: 2; }
+    .gptw-box { background: #CC1B18; color: white; font-size: 0.48rem; font-weight: 900; padding: 8px 5px; border-radius: 4px; text-align: center; line-height: 1.25; width: 50px; }
+    .gptw-info strong { display: block; color: var(--blue-dark); font-size: 0.88rem; font-weight: 700; }
+    .gptw-info span { color: var(--blue-primary); font-size: 0.82rem; font-weight: 600; }
+
+    /* SECCIONES COMUNES */
+    section { padding: 5rem 4rem; }
+    .section-label { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cyan); margin-bottom: 0.6rem; display: block; }
+    .section-title { font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: var(--blue-dark); line-height: 1.1; margin-bottom: 1.25rem; }
+    .section-subtitle { color: #555; font-size: 1rem; line-height: 1.65; max-width: 680px; margin-bottom: 2rem; }
+
+    /* SOBRE AWG */
+    #nosotros { background: var(--gray-bg); }
+    .nosotros-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+    .nosotros-text p { color: #444; line-height: 1.75; margin-bottom: 1.2rem; font-size: 1rem; }
+    .awards-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .award-card { background: var(--white); border-radius: 8px; padding: 1.2rem; border-left: 4px solid var(--blue-primary); }
+    .award-year { color: var(--blue-primary); font-size: 0.78rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .award-title { color: var(--blue-dark); font-weight: 700; font-size: 0.92rem; line-height: 1.35; margin-bottom: 0.3rem; }
+    .award-org { color: #999; font-size: 0.78rem; }
+
+    /* BUSQUEDAS */
+    #busquedas { background: var(--white); }
+    .filters { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
+    .filter-btn { background: var(--white); border: 1.5px solid var(--blue-light); color: var(--blue-dark); font-family: 'Rubik', sans-serif; font-size: 0.83rem; font-weight: 500; padding: 6px 18px; border-radius: 20px; cursor: pointer; transition: all 0.2s; }
+    .filter-btn:hover, .filter-btn.active { background: var(--blue-primary); border-color: var(--blue-primary); color: var(--white); }
+    .jobs-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 1.25rem; margin-bottom: 2rem; }
+    .job-card { background: var(--white); border: 1.5px solid #e0e0f0; border-radius: 12px; padding: 1.5rem; cursor: pointer; transition: all 0.2s; display: flex; flex-direction: column; gap: 0.6rem; }
+    .job-card:hover { border-color: var(--blue-primary); box-shadow: 0 4px 20px rgba(0,0,255,0.1); transform: translateY(-2px); }
+    .job-area { color: var(--cyan); font-size: 0.8rem; font-weight: 600; }
+    .job-title { font-weight: 700; font-size: 1.05rem; color: var(--blue-dark); line-height: 1.3; }
+    .job-meta { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .job-tag { background: var(--gray-bg); color: var(--blue-mid); font-size: 0.75rem; font-weight: 500; padding: 3px 10px; border-radius: 12px; }
+    .job-date { color: #bbb; font-size: 0.75rem; margin-top: 0.2rem; }
+    .empty-state { background: var(--gray-bg); border-radius: 12px; padding: 3rem 2rem; text-align: center; max-width: 680px; }
+    .empty-state p { color: #555; line-height: 1.7; margin-bottom: 1.5rem; }
+    .jobs-loading { display: flex; flex-direction: column; align-items: center; gap: 1rem; padding: 3rem; color: #aaa; font-size: 0.9rem; }
+    .spinner { width: 32px; height: 32px; border: 3px solid var(--blue-light); border-top-color: var(--blue-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .btn-reload { background: var(--blue-dark); color: var(--white); border: none; font-family: 'Rubik', sans-serif; font-size: 0.88rem; font-weight: 600; padding: 10px 22px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 0.5rem; transition: all 0.2s; margin-top: 1.5rem; }
+    .btn-reload:hover { background: var(--blue-mid); }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,30,0.6); backdrop-filter: blur(4px); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 1rem; opacity: 0; pointer-events: none; transition: opacity 0.25s; }
+    .modal-overlay.open { opacity: 1; pointer-events: all; }
+    .modal { background: var(--white); border-radius: 16px; max-width: 640px; width: 100%; max-height: 82vh; overflow-y: auto; padding: 2.5rem; position: relative; }
+    .modal-close { position: absolute; top: 1rem; right: 1.25rem; background: none; border: none; font-size: 1.4rem; cursor: pointer; color: #bbb; line-height: 1; }
+    .modal-close:hover { color: var(--blue-dark); }
+    .m-area { color: var(--cyan); font-size: 0.82rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .m-title { font-size: 1.5rem; font-weight: 900; color: var(--blue-dark); margin-bottom: 0.8rem; }
+    .m-tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .m-section { font-weight: 700; color: var(--blue-dark); font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; margin: 1.2rem 0 0.5rem; }
+    .m-body { color: #444; line-height: 1.7; font-size: 0.95rem; white-space: pre-line; }
+    .m-footer { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+
+    /* TALENT POOL */
+    #talent-pool { background: linear-gradient(135deg, var(--blue-dark) 0%, var(--blue-mid) 100%); }
+    #talent-pool .section-label { color: var(--cyan); }
+    #talent-pool .section-title { color: var(--white); }
+    #talent-pool .section-subtitle { color: rgba(255,255,255,0.75); }
+    .form-wrap { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.14); border-radius: 16px; padding: 2.5rem; max-width: 820px; }
+    .post-type { background: rgba(17,195,251,0.12); border: 1.5px solid rgba(17,195,251,0.4); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem; }
+    .post-type-label { color: var(--white); font-size: 0.9rem; font-weight: 600; display: block; margin-bottom: 0.85rem; }
+    .radio-group { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .radio-opt { display: flex; align-items: center; gap: 0.5rem; color: rgba(255,255,255,0.85); font-size: 0.88rem; cursor: pointer; }
+    .radio-opt input { accent-color: var(--cyan); }
+    #vacante-field { margin-top: 0.85rem; display: none; }
+    #vacante-input { width: 100%; background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.2); border-radius: 8px; color: var(--white); font-family: 'Rubik', sans-serif; font-size: 0.9rem; padding: 10px 14px; outline: none; }
+    #vacante-input::placeholder { color: rgba(255,255,255,0.35); }
+    #vacante-input:focus { border-color: var(--cyan); }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+    .fg { display: flex; flex-direction: column; gap: 0.38rem; }
+    .fg.full { grid-column: 1 / -1; }
+    .fg label { color: rgba(255,255,255,0.8); font-size: 0.82rem; font-weight: 500; }
+    .fg input, .fg select, .fg textarea { background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.18); border-radius: 8px; color: var(--white); font-family: 'Rubik', sans-serif; font-size: 0.88rem; padding: 10px 14px; outline: none; transition: border-color 0.2s; width: 100%; }
+    .fg input::placeholder, .fg textarea::placeholder { color: rgba(255,255,255,0.3); }
+    .fg select option { background: #1a1a8c; }
+    .fg input:focus, .fg select:focus, .fg textarea:focus { border-color: var(--cyan); }
+    .fg input[type="file"] { padding: 8px 12px; cursor: pointer; }
+    .fg input[type="file"]::file-selector-button { background: var(--cyan); border: none; border-radius: 4px; color: var(--blue-dark); font-family: 'Rubik', sans-serif; font-weight: 700; font-size: 0.78rem; padding: 4px 12px; cursor: pointer; margin-right: 10px; }
+    .form-footer { margin-top: 1.5rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .form-note { color: rgba(255,255,255,0.45); font-size: 0.76rem; flex: 1; min-width: 180px; line-height: 1.5; }
+    .success-box { background: rgba(17,195,251,0.1); border: 1.5px solid var(--cyan); border-radius: 12px; padding: 2.5rem 2rem; text-align: center; display: none; }
+    .success-box h3 { color: var(--white); font-size: 1.25rem; margin-bottom: 1rem; }
+    .success-box p { color: rgba(255,255,255,0.8); line-height: 1.7; }
+
+    /* BENEFICIOS */
+    #life-at-awg { background: var(--gray-bg); }
+    .benefits-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.1rem; }
+    .benefit-card { background: var(--white); border-radius: 12px; padding: 1.4rem 1.25rem; border-top: 3px solid var(--blue-primary); transition: transform 0.2s; }
+    .benefit-card:hover { transform: translateY(-3px); }
+    .benefit-icon { font-size: 1.9rem; margin-bottom: 0.65rem; display: block; }
+    .benefit-text { color: #444; font-size: 0.88rem; line-height: 1.45; font-weight: 500; }
+
+    /* COMUNIDAD */
+    #comunidad { background: var(--white); }
+    .comunidad-inner { display: flex; align-items: center; justify-content: space-between; gap: 3rem; flex-wrap: wrap; }
+    .btn-linkedin { background: var(--blue-dark); color: var(--white); border: none; font-family: 'Rubik', sans-serif; font-size: 0.92rem; font-weight: 700; padding: 16px 32px; border-radius: 8px; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 0.75rem; transition: all 0.2s; white-space: nowrap; }
+    .btn-linkedin:hover { background: var(--blue-mid); }
+    .li-icon { width: 22px; height: 22px; background: var(--white); border-radius: 4px; display: flex; align-items: center; justify-content: center; color: var(--blue-dark); font-weight: 900; font-size: 0.8rem; }
+
+    /* FOOTER */
+    footer { background: var(--blue-dark); padding: 3.5rem 4rem 1.5rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 1.5rem; }
+    .footer-brand { font-weight: 900; font-size: 1.1rem; color: var(--white); margin-bottom: 0.5rem; }
+    .footer-brand span { color: var(--cyan); }
+    .footer-tagline { color: rgba(255,255,255,0.4); font-size: 0.83rem; line-height: 1.5; }
+    .footer-col h4 { color: rgba(255,255,255,0.4); font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 1rem; }
+    .footer-col a { display: block; color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.88rem; margin-bottom: 0.55rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--cyan); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
+    .footer-copy, .footer-made { color: rgba(255,255,255,0.35); font-size: 0.78rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .nosotros-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 640px) {
+      nav { padding: 0 1rem; }
+      .nav-links { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; right: 0; background: var(--blue-dark); padding: 1.25rem 1.5rem; gap: 1.1rem; border-top: 1px solid rgba(255,255,255,0.1); }
+      .nav-links.open { display: flex; }
+      .hamburger { display: flex; }
+      section { padding: 3rem 1.25rem; }
+      #hero { padding: 5rem 1.25rem 3rem; min-height: auto; }
+      .blob-1 { width: 220px; height: 220px; top: -50px; right: -50px; }
+      .blob-2 { width: 160px; height: 160px; }
+      .blob-3 { display: none; }
+      .gptw-badge { bottom: 1rem; right: 1rem; padding: 10px 12px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .comunidad-inner { flex-direction: column; gap: 1.5rem; }
+      .awards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">AWG <span>CAREERS</span></a>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#busquedas"   data-i18n="nav_jobs">Búsquedas</a></li>
+    <li><a href="#talent-pool" data-i18n="nav_tp">Talent Pool</a></li>
+    <li><a href="#nosotros"    data-i18n="nav_about">Nosotros</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle">
+      <button class="lang-btn active" onclick="setLang('es')">ES</button>
+      <button class="lang-btn"        onclick="setLang('en')">EN</button>
+    </div>
+    <a href="https://awg.la/" target="_blank" rel="noopener" class="btn-site">awg.la ↗</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="hero-content">
+    <div class="hero-tag">#KEEPGROWING</div>
+    <h1 class="hero-headline">KEEP<br><span class="accent">GROWING</span><br>IN AWG</h1>
+    <p class="hero-subtitle" data-i18n="hero_sub">Somos el puente entre el entretenimiento global y los mercados de Latinoamérica y África. Buscamos personas que quieran crecer con nosotros.</p>
+    <div class="hero-ctas">
+      <a href="#busquedas"   class="btn-primary" data-i18n="hero_cta1">Ver búsquedas abiertas</a>
+      <a href="#talent-pool" class="btn-outline"  data-i18n="hero_cta2">Sumate al Talent Pool</a>
+    </div>
+  </div>
+  <div class="gptw-badge">
+    <div class="gptw-box">GREAT<br>PLACE<br>TO<br>WORK.</div>
+    <div class="gptw-info"><strong>Best Workplaces™</strong><span>Argentina 2026</span></div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="nosotros-grid">
+    <div class="nosotros-text">
+      <span class="section-label" data-i18n="about_label">SOBRE NOSOTROS</span>
+      <h2 class="section-title">Turning Audiences into Revenue</h2>
+      <p data-i18n="about_p1">Desde 2004, las marcas de entretenimiento más grandes del mundo confían en AWG, su tecnología y sus conexiones con pasarelas de pago locales y socios de medios para acelerar su crecimiento, aumentar los ingresos y expandirse en los mercados de Latinoamérica y África.</p>
+      <p data-i18n="about_p2">Operamos en más de 30 países, en alianza con las marcas globales más importantes en OTT, gaming, deportes, educación y publicidad digital. Nuestro equipo es nuestro mayor activo.</p>
+      <a href="https://awg.la/" target="_blank" rel="noopener" class="btn-primary" style="margin-top:2rem;display:inline-block" data-i18n="about_cta">Conocé más en awg.la ↗</a>
+    </div>
+    <div class="awards-grid">
+      <div class="award-card"><div class="award-year">2026</div><div class="award-title" data-i18n="aw1">Best Workplaces™ Argentina</div><div class="award-org">Great Place To Work</div></div>
+      <div class="award-card"><div class="award-year">2023</div><div class="award-title" data-i18n="aw2">Best Company for Women · People Company</div><div class="award-org">Great Place To Work</div></div>
+      <div class="award-card"><div class="award-year">2023</div><div class="award-title" data-i18n="aw3">Best VAS Provider</div><div class="award-org">Antonio Meucci Awards</div></div>
+      <div class="award-card"><div class="award-year">2022</div><div class="award-title" data-i18n="aw4">Most Innovative Content · Excellence in Content Monetization</div><div class="award-org">Meffys &amp; Waspies</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="busquedas">
+  <span class="section-label" data-i18n="jobs_label">BÚSQUEDAS ACTIVAS</span>
+  <h2 class="section-title" data-i18n="jobs_title">Encontrá tu próxima oportunidad</h2>
+  <p class="section-subtitle" data-i18n="jobs_sub">Explorá las posiciones abiertas y postulate directamente.</p>
+  <div class="filters" id="filters">
+    <button class="filter-btn active" onclick="filterJobs('all',this)" data-i18n="filter_all">Todas las áreas</button>
+  </div>
+  <div id="jobs-container">
+    <div class="jobs-loading"><div class="spinner"></div><span data-i18n="jobs_loading">Cargando búsquedas...</span></div>
+  </div>
+  <button class="btn-reload" onclick="loadJobs()">↻ <span data-i18n="jobs_reload">Ver búsquedas activas</span></button>
+</section>
+
+<section id="talent-pool">
+  <span class="section-label" data-i18n="tp_label">TALENT POOL</span>
+  <h2 class="section-title" data-i18n="tp_title">¡Unite a nuestra base de talentos!</h2>
+  <p class="section-subtitle" data-i18n="tp_sub">Si no hay una búsqueda abierta que se alinee con tu perfil hoy, dejanos tus datos y te tenemos en el radar.</p>
+  <div class="form-wrap">
+    <form id="tp-form" onsubmit="submitForm(event)">
+      <div class="post-type">
+        <span class="post-type-label" data-i18n="form_type_lbl">¿Es una postulación para una búsqueda activa?</span>
+        <div class="radio-group">
+          <label class="radio-opt"><input type="radio" name="tipo" value="talent_pool" checked onchange="toggleVacante(this)"><span data-i18n="form_type_tp">No, quiero sumarme a la base de talentos</span></label>
+          <label class="radio-opt"><input type="radio" name="tipo" value="busqueda_activa" onchange="toggleVacante(this)"><span data-i18n="form_type_active">Sí, me postulo a una búsqueda activa</span></label>
+        </div>
+        <div id="vacante-field">
+          <input type="text" id="vacante-input" placeholder="¿A qué rol o vacante te postulás?">
+        </div>
+      </div>
+      <div class="form-grid">
+        <div class="fg"><label data-i18n="f_name">Nombre completo *</label><input type="text" name="nombre" required placeholder="Tu nombre y apellido"></div>
+        <div class="fg"><label data-i18n="f_email">Email de contacto *</label><input type="email" name="email" required placeholder="tu@email.com"></div>
+        <div class="fg full"><label data-i18n="f_linkedin">Perfil de LinkedIn (URL)</label><input type="url" name="linkedin" placeholder="https://linkedin.com/in/tu-perfil"></div>
+        <div class="fg">
+          <label data-i18n="f_area">¿En qué área aportás más valor? *</label>
+          <select name="area" required>
+            <option value="" disabled selected data-i18n="f_select">Seleccioná un área</option>
+            <option>Tech</option><option>Human Resources</option><option>Operations</option>
+            <option>Design</option><option>Growth</option><option>Marketing</option>
+            <option>Licenses &amp; Product</option><option>Commercial</option>
+            <option>Adm &amp; Finance</option><option>Digital Advertising</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label data-i18n="f_vas">¿Experiencia en la industria VAS?</label>
+          <select name="vas">
+            <option value="no" data-i18n="f_vas_no">No</option>
+            <option value="conozco" data-i18n="f_vas_kn">Conozco</option>
+            <option value="experiencia" data-i18n="f_vas_ex">Tengo experiencia comprobable</option>
+          </select>
+        </div>
+        <div class="fg full"><label data-i18n="f_rol">¿Qué tipo de rol te interesa? (seniority / foco)</label><input type="text" name="rol" placeholder="Ej: Senior Developer, Data Analyst Jr..."></div>
+        <div class="fg"><label data-i18n="f_ubicacion">¿Dónde vivís actualmente?</label><input type="text" name="ubicacion" placeholder="Ciudad, País"></div>
+        <div class="fg">
+          <label data-i18n="f_modalidad">Modalidad ideal</label>
+          <select name="modalidad">
+            <option data-i18n="f_m_hybrid">Híbrido (puedo ir 2 veces/semana a la oficina)</option>
+            <option data-i18n="f_m_remote">Remoto</option>
+            <option data-i18n="f_m_onsite">Presencial</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label data-i18n="f_ingles">Nivel de inglés</label>
+          <select name="ingles">
+            <option data-i18n="f_e_basic">Básico</option><option data-i18n="f_e_mid">Intermedio</option>
+            <option data-i18n="f_e_adv">Avanzado</option><option data-i18n="f_e_bi">Bilingüe</option>
+          </select>
+        </div>
+        <div class="fg"><label data-i18n="f_salario">Expectativa salarial bruta mensual</label><input type="text" name="salario" placeholder="Ej: $3.000 USD o ARS 2.500.000"></div>
+        <div class="fg full"><label data-i18n="f_beneficios">¿Qué 3 beneficios son innegociables para vos?</label><input type="text" name="beneficios" placeholder="Ej: prepaga, trabajo remoto, capacitación..."></div>
+        <div class="fg full"><label data-i18n="f_cv">CV actualizado (PDF, DOC o DOCX — máx. 10 MB) *</label><input type="file" id="cv-input" name="cv" accept=".pdf,.doc,.docx" required></div>
+      </div>
+      <div class="form-footer">
+        <button type="submit" class="btn-primary" id="submit-btn" data-i18n="f_submit">Enviar mi perfil →</button>
+        <p class="form-note" data-i18n="f_note">Tu información queda protegida en Google Drive y Sheets de AWG. No se comparte con terceros.</p>
+      </div>
+    </form>
+    <div class="success-box" id="success-box">
+      <h3>🎉 <span data-i18n="suc_title">¡Gracias por compartir tu perfil con AWG!</span></h3>
+      <p data-i18n="suc_body">Ya guardamos tus datos de forma segura en nuestro Talent Pool. A partir de ahora estás en nuestro radar. Si en el futuro abrimos una posición que haga match con tu perfil, experiencia e intereses, nos vamos a poner en contacto directo con vos. ¡Que tengas un excelente día!</p>
+    </div>
+  </div>
+</section>
+
+<section id="life-at-awg">
+  <span class="section-label" data-i18n="ben_label">POR QUÉ AWG</span>
+  <h2 class="section-title" data-i18n="ben_title">Beneficios &amp; Cultura</h2>
+  <p class="section-subtitle" data-i18n="ben_sub">Todo lo que te ofrecemos para que puedas crecer y disfrutar tu trabajo.</p>
+  <div class="benefits-grid">
+    <div class="benefit-card"><span class="benefit-icon">⏰</span><p class="benefit-text" data-i18n="b1">Jornada reducida (8 hs diarias, incluyendo hora de almuerzo)</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🎯</span><p class="benefit-text" data-i18n="b2">Bono por cumplimiento de objetivos</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🍽️</span><p class="benefit-text" data-i18n="b3">Tarjeta de almuerzo para los días presenciales</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🏥</span><p class="benefit-text" data-i18n="b4">Prepaga de primer nivel</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🌴</span><p class="benefit-text" data-i18n="b5">Vacaciones fraccionadas a tu gusto</p></div>
+    <div class="benefit-card"><span class="benefit-icon">☀️</span><p class="benefit-text" data-i18n="b6">Viernes Flex (Beneficio de Verano)</p></div>
+    <div class="benefit-card"><span class="benefit-icon">👶</span><p class="benefit-text" data-i18n="b7">Licencias extendidas por nacimiento de hijos/as y por adopción</p></div>
+    <div class="benefit-card"><span class="benefit-icon">📋</span><p class="benefit-text" data-i18n="b8">Bloques libres para trámites personales</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🌐</span><p class="benefit-text" data-i18n="b9">Clases de idiomas</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🎁</span><p class="benefit-text" data-i18n="b10">Regalos en días especiales</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🏷️</span><p class="benefit-text" data-i18n="b11">Página de cupones y descuentos varios</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🌎</span><p class="benefit-text" data-i18n="b12">Entorno Global, Dinámico y de Innovación</p></div>
+    <div class="benefit-card"><span class="benefit-icon">🤝</span><p class="benefit-text" data-i18n="b13">Clima 100% Colaborativo</p></div>
+  </div>
+</section>
+
+<section id="comunidad">
+  <div class="comunidad-inner">
+    <div>
+      <span class="section-label" data-i18n="com_label">COMUNIDAD</span>
+      <h2 class="section-title" data-i18n="com_title">Seguinos en LinkedIn</h2>
+      <p class="section-subtitle" data-i18n="com_sub">Enterate de las últimas novedades, eventos, logros del equipo y nuevas oportunidades laborales en AWG.</p>
+    </div>
+    <a href="https://www.linkedin.com/company/awgla/people/" target="_blank" rel="noopener" class="btn-linkedin">
+      <span class="li-icon">in</span><span data-i18n="com_btn">Seguir a AWG en LinkedIn</span>
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">AWG <span>CAREERS</span></div>
+      <p class="footer-tagline">Turning Audiences into Revenue · Since 2004</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="ft_nav">NAVEGACIÓN</h4>
+      <a href="#busquedas"   data-i18n="nav_jobs">Búsquedas</a>
+      <a href="#talent-pool" data-i18n="nav_tp">Talent Pool</a>
+      <a href="#nosotros"    data-i18n="nav_about">Nosotros</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="ft_contact">CONTACTO</h4>
+      <a href="mailto:hr@awg.la">hr@awg.la</a>
+      <a href="https://awg.la/" target="_blank" rel="noopener">awg.la ↗</a>
+      <a href="https://www.linkedin.com/company/awgla/people/" target="_blank" rel="noopener">LinkedIn ↗</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2026 AWG. All rights reserved.</p>
+    <p class="footer-made">Hecho con ❤️ por el equipo de HR de AWG</p>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modal-overlay" onclick="overlayClick(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="m-area"  id="m-area"></div>
+    <h2 class="m-title" id="m-title"></h2>
+    <div class="m-tags"  id="m-tags"></div>
+    <p class="m-section" data-i18n="m_desc">DESCRIPCIÓN</p>
+    <div class="m-body"  id="m-desc"></div>
+    <p class="m-section" data-i18n="m_req">REQUISITOS</p>
+    <div class="m-body"  id="m-req"></div>
+    <div class="m-footer">
+      <a href="#talent-pool" class="btn-primary" onclick="applyFromModal()" data-i18n="m_apply">Postularme a esta posición →</a>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// CONFIGURACION — pegá aquí la URL de tu AppScript Web App
+// Ver instrucciones detalladas en Code.gs
+// ============================================================
+const CONFIG = {
+  SCRIPT_URL: 'https://script.google.com/macros/s/AKfycbyF7Wbj1U22yHLftMu4jDvqlvYnS3UfEjTWhyYIb2V7c0TcOxeKMMss7DvpBrcF9ZpH/exec'
+};
+
+// ============================================================
+// TRADUCCIONES
+// ============================================================
+const T = {
+  es: {
+    nav_jobs:'Búsquedas',nav_tp:'Talent Pool',nav_about:'Nosotros',
+    hero_sub:'Somos el puente entre el entretenimiento global y los mercados de Latinoamérica y África. Buscamos personas que quieran crecer con nosotros.',
+    hero_cta1:'Ver búsquedas abiertas',hero_cta2:'Sumate al Talent Pool',
+    about_label:'SOBRE NOSOTROS',
+    about_p1:'Desde 2004, las marcas de entretenimiento más grandes del mundo confían en AWG, su tecnología y sus conexiones con pasarelas de pago locales y socios de medios para acelerar su crecimiento, aumentar los ingresos y expandirse en los mercados de Latinoamérica y África.',
+    about_p2:'Operamos en más de 30 países, en alianza con las marcas globales más importantes en OTT, gaming, deportes, educación y publicidad digital. Nuestro equipo es nuestro mayor activo.',
+    about_cta:'Conocé más en awg.la ↗',
+    aw1:'Best Workplaces™ Argentina',aw2:'Best Company for Women · People Company',
+    aw3:'Best VAS Provider',aw4:'Most Innovative Content · Excellence in Content Monetization',
+    jobs_label:'BÚSQUEDAS ACTIVAS',jobs_title:'Encontrá tu próxima oportunidad',
+    jobs_sub:'Explorá las posiciones abiertas y postulate directamente.',
+    filter_all:'Todas las áreas',jobs_loading:'Cargando búsquedas...',jobs_reload:'Ver búsquedas activas',
+    jobs_empty:'Si hoy no encontrás una vacante que haga match con tu perfil, ¡no te preocupes! Te invitamos a dejar tus datos en nuestra base de talento. Así podemos mantenernos en contacto y tenerte en el radar para futuras oportunidades en AWG.',
+    tp_label:'TALENT POOL',tp_title:'¡Unite a nuestra base de talentos!',
+    tp_sub:'Si no hay una búsqueda abierta que se alinee con tu perfil hoy, dejanos tus datos y te tenemos en el radar.',
+    form_type_lbl:'¿Es una postulación para una búsqueda activa?',
+    form_type_tp:'No, quiero sumarme a la base de talentos',form_type_active:'Sí, me postulo a una búsqueda activa',
+    f_name:'Nombre completo *',f_email:'Email de contacto *',f_linkedin:'Perfil de LinkedIn (URL)',
+    f_area:'¿En qué área aportás más valor? *',f_select:'Seleccioná un área',
+    f_vas:'¿Experiencia en la industria VAS?',f_vas_no:'No',f_vas_kn:'Conozco',f_vas_ex:'Tengo experiencia comprobable',
+    f_rol:'¿Qué tipo de rol te interesa? (seniority / foco)',
+    f_ubicacion:'¿Dónde vivís actualmente?',f_modalidad:'Modalidad ideal',
+    f_m_hybrid:'Híbrido (puedo ir 2 veces/semana a la oficina)',f_m_remote:'Remoto',f_m_onsite:'Presencial',
+    f_ingles:'Nivel de inglés',f_e_basic:'Básico',f_e_mid:'Intermedio',f_e_adv:'Avanzado',f_e_bi:'Bilingüe',
+    f_salario:'Expectativa salarial bruta mensual',
+    f_beneficios:'¿Qué 3 beneficios son innegociables para vos?',
+    f_cv:'CV actualizado (PDF, DOC o DOCX — máx. 10 MB) *',
+    f_submit:'Enviar mi perfil →',
+    f_note:'Tu información queda protegida en Google Drive y Sheets de AWG. No se comparte con terceros.',
+    suc_title:'¡Gracias por compartir tu perfil con AWG!',
+    suc_body:'Ya guardamos tus datos de forma segura en nuestro Talent Pool. A partir de ahora estás en nuestro radar. Si en el futuro abrimos una posición que haga match con tu perfil, experiencia e intereses, nos vamos a poner en contacto directo con vos. ¡Que tengas un excelente día!',
+    ben_label:'POR QUÉ AWG',ben_title:'Beneficios & Cultura',
+    ben_sub:'Todo lo que te ofrecemos para que puedas crecer y disfrutar tu trabajo.',
+    b1:'Jornada reducida (8 hs diarias, incluyendo hora de almuerzo)',b2:'Bono por cumplimiento de objetivos',
+    b3:'Tarjeta de almuerzo para los días presenciales',b4:'Prepaga de primer nivel',
+    b5:'Vacaciones fraccionadas a tu gusto',b6:'Viernes Flex (Beneficio de Verano)',
+    b7:'Licencias extendidas por nacimiento de hijos/as y por adopción',b8:'Bloques libres para trámites personales',
+    b9:'Clases de idiomas',b10:'Regalos en días especiales',b11:'Página de cupones y descuentos varios',
+    b12:'Entorno Global, Dinámico y de Innovación',b13:'Clima 100% Colaborativo',
+    com_label:'COMUNIDAD',com_title:'Seguinos en LinkedIn',
+    com_sub:'Enterate de las últimas novedades, eventos, logros del equipo y nuevas oportunidades laborales en AWG.',
+    com_btn:'Seguir a AWG en LinkedIn',
+    ft_nav:'NAVEGACIÓN',ft_contact:'CONTACTO',
+    m_desc:'DESCRIPCIÓN',m_req:'REQUISITOS',m_apply:'Postularme a esta posición →',
+  },
+  en: {
+    nav_jobs:'Open Roles',nav_tp:'Talent Pool',nav_about:'About Us',
+    hero_sub:"We are the bridge between global entertainment and the markets of Latin America and Africa. We look for people who want to grow with us.",
+    hero_cta1:'See open roles',hero_cta2:'Join Talent Pool',
+    about_label:'ABOUT US',
+    about_p1:"Since 2004, the world's largest entertainment brands trust AWG, its technology, and connections with local payment gateways and media partners to accelerate their growth, increase revenue, and unlock new Latin American and African markets.",
+    about_p2:"We operate in more than 30 countries, partnering with the world's most important brands in OTT, gaming, sports, education, and digital advertising. Our team is our greatest asset.",
+    about_cta:'Learn more at awg.la ↗',
+    aw1:'Best Workplaces™ Argentina',aw2:'Best Company for Women · People Company',
+    aw3:'Best VAS Provider',aw4:'Most Innovative Content · Excellence in Content Monetization',
+    jobs_label:'OPEN ROLES',jobs_title:'Find your next opportunity',
+    jobs_sub:'Explore open positions and apply directly.',
+    filter_all:'All areas',jobs_loading:'Loading positions...',jobs_reload:'Refresh open roles',
+    jobs_empty:"If you don't find a matching role today, don't worry! Leave your details in our talent pool and we'll keep you on our radar for future opportunities at AWG.",
+    tp_label:'TALENT POOL',tp_title:'Join our talent pool!',
+    tp_sub:"If there's no open role that matches your profile today, leave us your details and we'll keep you on our radar.",
+    form_type_lbl:'Is this an application for an active search?',
+    form_type_tp:'No, I want to join the talent pool',form_type_active:"Yes, I'm applying to an active search",
+    f_name:'Full name *',f_email:'Contact email *',f_linkedin:'LinkedIn profile (URL)',
+    f_area:'Which area do you see yourself contributing most? *',f_select:'Select an area',
+    f_vas:'Experience in the VAS industry?',f_vas_no:'No',f_vas_kn:'I know about it',f_vas_ex:'Proven experience',
+    f_rol:'What type of role are you interested in? (seniority / focus)',
+    f_ubicacion:'Where do you currently live?',f_modalidad:'Preferred work arrangement',
+    f_m_hybrid:'Hybrid (I can go to the office 2x/week)',f_m_remote:'Remote',f_m_onsite:'On-site',
+    f_ingles:'English level',f_e_basic:'Basic',f_e_mid:'Intermediate',f_e_adv:'Advanced',f_e_bi:'Bilingual',
+    f_salario:'Gross monthly salary expectation',
+    f_beneficios:'What 3 benefits are non-negotiable for you?',
+    f_cv:'Updated CV (PDF, DOC or DOCX — max 10 MB) *',
+    f_submit:'Submit my profile →',
+    f_note:"Your information is securely stored in AWG's Google Drive and Sheets. Not shared with third parties.",
+    suc_title:'Thanks for sharing your profile with AWG!',
+    suc_body:"We've securely saved your details in our Talent Pool. You're now on our radar. If we open a position that matches your profile, experience, and interests, we'll reach out to you directly. Have a great day!",
+    ben_label:'WHY AWG',ben_title:'Benefits & Culture',
+    ben_sub:'Everything we offer so you can grow and enjoy your work.',
+    b1:'Reduced hours (8 hours/day including lunch break)',b2:'Performance bonus',
+    b3:'Lunch card for in-office days',b4:'Top-tier health insurance',
+    b5:'Vacation days split however you like',b6:'Flex Fridays (Summer Benefit)',
+    b7:'Extended parental leave for birth and adoption',b8:'Free time blocks for personal errands',
+    b9:'Language classes',b10:'Gifts on special dates',b11:'Discounts and perks page',
+    b12:'Global, dynamic, and innovative environment',b13:'100% collaborative culture',
+    com_label:'COMMUNITY',com_title:'Follow us on LinkedIn',
+    com_sub:'Stay updated on the latest news, events, team achievements, and new opportunities at AWG.',
+    com_btn:'Follow AWG on LinkedIn',
+    ft_nav:'NAVIGATION',ft_contact:'CONTACT',
+    m_desc:'DESCRIPTION',m_req:'REQUIREMENTS',m_apply:'Apply to this position →',
+  }
+};
+
+// ── Idioma ──────────────────────────────────────────────────
+let lang = 'es';
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll('.lang-btn').forEach((b,i) => {
+    b.classList.toggle('active', (i===0&&l==='es')||(i===1&&l==='en'));
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (T[l][k] !== undefined) el.textContent = T[l][k];
+  });
+}
+
+// ── Hamburger ───────────────────────────────────────────────
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('nav-links').classList.toggle('open');
+});
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'));
+});
+
+// ── Búsquedas activas ───────────────────────────────────────
+let allJobs = [], currentFiltered = [], activeFilter = 'all';
+
+async function loadJobs() {
+  const c = document.getElementById('jobs-container');
+  c.innerHTML = '<div class="jobs-loading"><div class="spinner"></div><span>' + T[lang].jobs_loading + '</span></div>';
+  if (!CONFIG.SCRIPT_URL) {
+    allJobs = []; renderJobs(); buildFilters(); return;
+  }
+  try {
+    const res  = await fetch(CONFIG.SCRIPT_URL + '?action=jobs');
+    const data = await res.json();
+    allJobs = data.filter(j => (j.Estado||'').toLowerCase() === 'activa');
+    buildFilters(); renderJobs();
+  } catch {
+    c.innerHTML = '<div class="empty-state"><p>No se pudieron cargar las búsquedas.</p><button class="btn-primary" style="margin-top:1rem" onclick="loadJobs()">Reintentar</button></div>';
+  }
+}
+
+function buildFilters() {
+  const areas = [...new Set(allJobs.map(j=>j.Área).filter(Boolean))];
+  const el = document.getElementById('filters');
+  el.innerHTML = '<button class="filter-btn active" onclick="filterJobs(\'all\',this)">' + T[lang].filter_all + '</button>';
+  areas.forEach(a => { el.innerHTML += '<button class="filter-btn" onclick="filterJobs(\'' + a + '\',this)">' + a + '</button>'; });
+}
+
+function filterJobs(area, btn) {
+  activeFilter = area;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderJobs();
+}
+
+function renderJobs() {
+  const c = document.getElementById('jobs-container');
+  currentFiltered = activeFilter === 'all' ? allJobs : allJobs.filter(j => j.Área === activeFilter);
+  if (!currentFiltered.length) {
+    c.innerHTML = '<div class="empty-state"><p>' + T[lang].jobs_empty + '</p><a href="#talent-pool" class="btn-primary">Sumate al Talent Pool</a></div>';
+    return;
+  }
+  c.innerHTML = '<div class="jobs-grid">' + currentFiltered.map((j,i) =>
+    '<div class="job-card" onclick="openModal(' + i + ')">' +
+    '<span class="job-area">' + (j.Área||'') + '</span>' +
+    '<h3 class="job-title">' + (j.Posición||'') + '</h3>' +
+    '<div class="job-meta">' +
+    (j.Seniority ? '<span class="job-tag">' + j.Seniority + '</span>' : '') +
+    (j.Ubicación ? '<span class="job-tag">📍 ' + j.Ubicación + '</span>' : '') +
+    (j.Modalidad ? '<span class="job-tag">' + j.Modalidad + '</span>' : '') +
+    '</div>' +
+    (j.Publicado ? '<span class="job-date">' + j.Publicado + '</span>' : '') +
+    '</div>'
+  ).join('') + '</div>';
+}
+
+// ── Modal ───────────────────────────────────────────────────
+let currentJob = null;
+function openModal(i) {
+  currentJob = currentFiltered[i];
+  const j = currentJob;
+  document.getElementById('m-area').textContent  = j.Área||'';
+  document.getElementById('m-title').textContent = j.Posición||'';
+  document.getElementById('m-tags').innerHTML =
+    (j.Seniority ? '<span class="job-tag">'+j.Seniority+'</span>' : '') +
+    (j.Ubicación ? '<span class="job-tag">📍 '+j.Ubicación+'</span>' : '') +
+    (j.Modalidad ? '<span class="job-tag">'+j.Modalidad+'</span>' : '');
+  document.getElementById('m-desc').textContent = j.Descripción||'—';
+  document.getElementById('m-req').textContent  = j.Requisitos||'—';
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function overlayClick(e) { if (e.target===document.getElementById('modal-overlay')) closeModal(); }
+document.addEventListener('keydown', e => { if (e.key==='Escape') closeModal(); });
+function applyFromModal() {
+  closeModal();
+  setTimeout(() => {
+    const r = document.querySelector('input[name="tipo"][value="busqueda_activa"]');
+    if (r) { r.checked = true; toggleVacante(r); }
+    if (currentJob) document.getElementById('vacante-input').value = currentJob.Posición||'';
+    document.getElementById('talent-pool').scrollIntoView({behavior:'smooth'});
+  }, 350);
+}
+
+// ── Formulario ──────────────────────────────────────────────
+function toggleVacante(radio) {
+  document.getElementById('vacante-field').style.display =
+    radio.value === 'busqueda_activa' ? 'block' : 'none';
+}
+function fileToBase64(file) {
+  return new Promise((res,rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result.split(',')[1]);
+    r.onerror = rej;
+    r.readAsDataURL(file);
+  });
+}
+async function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = lang==='es' ? 'Enviando...' : 'Sending...';
+  const fd = new FormData(e.target);
+  const data = {};
+  fd.forEach((v,k) => { data[k]=v; });
+  data.tipo    = document.querySelector('input[name="tipo"]:checked').value;
+  data.vacante = document.getElementById('vacante-input').value||'';
+  const cvFile = document.getElementById('cv-input').files[0];
+  if (cvFile) {
+    data.cvBase64 = await fileToBase64(cvFile);
+    data.cvName   = cvFile.name;
+    data.cvType   = cvFile.type;
+  }
+  if (!CONFIG.SCRIPT_URL) { showSuccess(); return; }
+  try {
+    await fetch(CONFIG.SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify(data) });
+    showSuccess();
+  } catch {
+    btn.disabled = false;
+    btn.textContent = T[lang].f_submit;
+    alert(lang==='es' ? 'Error al enviar. Intentá de nuevo.' : 'Error. Please try again.');
+  }
+}
+function showSuccess() {
+  document.getElementById('tp-form').style.display = 'none';
+  const box = document.getElementById('success-box');
+  box.style.display = 'block';
+  box.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+// ── Init ─────────────────────────────────────────────────────
+loadJobs();
+</script>
+</body>
+</html>
