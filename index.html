@@ -539,6 +539,19 @@ document.querySelectorAll('.nav-links a').forEach(a => {
 // ── Búsquedas activas ───────────────────────────────────────
 let allJobs = [], currentFiltered = [], activeFilter = 'all';
 
+// Helper: obtiene un campo del objeto job ignorando diferencias de tildes
+function jf(job, fieldName) {
+  if (job[fieldName] !== undefined) return job[fieldName];
+  // Normalizar: quitar tildes y comparar
+  var norm = function(s) { return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().trim(); };
+  var target = norm(fieldName);
+  var keys = Object.keys(job);
+  for (var i=0; i<keys.length; i++) {
+    if (norm(keys[i]) === target) return job[keys[i]];
+  }
+  return '';
+}
+
 async function loadJobs() {
   const c = document.getElementById('jobs-container');
   c.innerHTML = '<div class="jobs-loading"><div class="spinner"></div><span>' + T[lang].jobs_loading + '</span></div>';
@@ -578,11 +591,11 @@ function renderJobs() {
   }
   c.innerHTML = '<div class="jobs-grid">' + currentFiltered.map((j,i) =>
     '<div class="job-card" onclick="openModal(' + i + ')">' +
-    '<span class="job-area">' + (j.Área||'') + '</span>' +
-    '<h3 class="job-title">' + (j.Posición||'') + '</h3>' +
+    '<span class="job-area">' + jf(j,'Área') + '</span>' +
+    '<h3 class="job-title">' + jf(j,'Posición') + '</h3>' +
     '<div class="job-meta">' +
     (j.Seniority ? '<span class="job-tag">' + j.Seniority + '</span>' : '') +
-    (j.Ubicación ? '<span class="job-tag">📍 ' + j.Ubicación + '</span>' : '') +
+    (jf(j,'Ubicación') ? '<span class="job-tag">📍 ' + jf(j,'Ubicación') + '</span>' : '') +
     (j.Modalidad ? '<span class="job-tag">' + j.Modalidad + '</span>' : '') +
     '</div>' +
     (j.Publicado ? '<span class="job-date">' + j.Publicado + '</span>' : '') +
@@ -595,11 +608,11 @@ let currentJob = null;
 function openModal(i) {
   currentJob = currentFiltered[i];
   const j = currentJob;
-  document.getElementById('m-area').textContent  = j.Área||'';
-  document.getElementById('m-title').textContent = j.Posición||'';
+  document.getElementById('m-area').textContent  = jf(j,'Área');
+  document.getElementById('m-title').textContent = jf(j,'Posición');
   document.getElementById('m-tags').innerHTML =
     (j.Seniority ? '<span class="job-tag">'+j.Seniority+'</span>' : '') +
-    (j.Ubicación ? '<span class="job-tag">📍 '+j.Ubicación+'</span>' : '') +
+    (jf(j,'Ubicación') ? '<span class="job-tag">📍 '+jf(j,'Ubicación')+'</span>' : '') +
     (j.Modalidad ? '<span class="job-tag">'+j.Modalidad+'</span>' : '');
   document.getElementById('m-desc').textContent    = j['Descripción']||j['Descripcion']||'—';
   document.getElementById('m-resp').textContent    = j['Responsabilidades']||'—';
