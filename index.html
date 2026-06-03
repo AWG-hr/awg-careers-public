@@ -664,24 +664,7 @@ async function submitForm(e) {
 
   if (!CONFIG.SCRIPT_URL) { showSuccess(); return; }
 
-  // Paso 1: subir CV vía POST (intento, sin bloquear si falla)
-  let cvUrl = '';
-  const cvFile = document.getElementById('cv-input').files[0];
-  if (cvFile) {
-    try {
-      const cvBase64 = await fileToBase64(cvFile);
-      const res = await fetch(CONFIG.SCRIPT_URL, {
-        method: 'POST',
-        body: JSON.stringify({ cvBase64, cvName: cvFile.name, cvType: cvFile.type }),
-      });
-      const json = await res.json();
-      cvUrl = json.cvUrl || '';
-    } catch {
-      // CV no pudo subirse, continuamos igual
-    }
-  }
-
-  // Paso 2: enviar datos del formulario vía GET (funciona con AppScript sin problemas de CORS)
+  // Paso 1: enviar datos del formulario vía GET — siempre primero
   const params = new URLSearchParams({
     action: 'submit',
     tipo:       data.tipo,
@@ -697,16 +680,33 @@ async function submitForm(e) {
     ingles:     data.ingles     || '',
     salario:    data.salario    || '',
     beneficios: data.beneficios || '',
-    cvUrl:      cvUrl,
+    cvNombre:   '',
   });
 
   try {
     await fetch(CONFIG.SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' });
-    showSuccess();
   } catch {
     btn.disabled = false;
     btn.textContent = T[lang].f_submit;
     alert(lang==='es' ? 'Error al enviar. Intentá de nuevo.' : 'Error. Please try again.');
+    return;
+  }
+
+  // Mostrar éxito inmediatamente — los datos ya están guardados
+  showSuccess();
+
+  // Paso 2: subir CV en segundo plano (no bloquea ni afecta el flujo)
+  const cvFile = document.getElementById('cv-input').files[0];
+  if (cvFile) {
+    try {
+      const cvBase64 = await fileToBase64(cvFile);
+      await fetch(CONFIG.SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ cvBase64, cvName: cvFile.name, cvType: cvFile.type, email: data.email }),
+      });
+    } catch {
+      // El CV no se pudo subir — los datos del candidato ya están guardados
+    }
   }
 }
 function showSuccess() {
