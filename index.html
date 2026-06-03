@@ -655,20 +655,53 @@ async function submitForm(e) {
   const btn = document.getElementById('submit-btn');
   btn.disabled = true;
   btn.textContent = lang==='es' ? 'Enviando...' : 'Sending...';
+
   const fd = new FormData(e.target);
   const data = {};
   fd.forEach((v,k) => { data[k]=v; });
   data.tipo    = document.querySelector('input[name="tipo"]:checked').value;
   data.vacante = document.getElementById('vacante-input').value||'';
+
+  if (!CONFIG.SCRIPT_URL) { showSuccess(); return; }
+
+  // Paso 1: subir CV vía POST (intento, sin bloquear si falla)
+  let cvUrl = '';
   const cvFile = document.getElementById('cv-input').files[0];
   if (cvFile) {
-    data.cvBase64 = await fileToBase64(cvFile);
-    data.cvName   = cvFile.name;
-    data.cvType   = cvFile.type;
+    try {
+      const cvBase64 = await fileToBase64(cvFile);
+      const res = await fetch(CONFIG.SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({ cvBase64, cvName: cvFile.name, cvType: cvFile.type }),
+      });
+      const json = await res.json();
+      cvUrl = json.cvUrl || '';
+    } catch {
+      // CV no pudo subirse, continuamos igual
+    }
   }
-  if (!CONFIG.SCRIPT_URL) { showSuccess(); return; }
+
+  // Paso 2: enviar datos del formulario vía GET (funciona con AppScript sin problemas de CORS)
+  const params = new URLSearchParams({
+    action: 'submit',
+    tipo:       data.tipo,
+    vacante:    data.vacante    || '',
+    nombre:     data.nombre     || '',
+    email:      data.email      || '',
+    linkedin:   data.linkedin   || '',
+    area:       data.area       || '',
+    vas:        data.vas        || '',
+    rol:        data.rol        || '',
+    ubicacion:  data.ubicacion  || '',
+    modalidad:  data.modalidad  || '',
+    ingles:     data.ingles     || '',
+    salario:    data.salario    || '',
+    beneficios: data.beneficios || '',
+    cvUrl:      cvUrl,
+  });
+
   try {
-    await fetch(CONFIG.SCRIPT_URL, { method:'POST', mode:'no-cors', body: JSON.stringify(data) });
+    await fetch(CONFIG.SCRIPT_URL + '?' + params.toString(), { mode: 'no-cors' });
     showSuccess();
   } catch {
     btn.disabled = false;
