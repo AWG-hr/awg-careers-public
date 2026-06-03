@@ -393,10 +393,14 @@
     <div class="m-area"  id="m-area"></div>
     <h2 class="m-title" id="m-title"></h2>
     <div class="m-tags"  id="m-tags"></div>
-    <p class="m-section" data-i18n="m_desc">DESCRIPCIÓN</p>
-    <div class="m-body"  id="m-desc"></div>
-    <p class="m-section" data-i18n="m_req">REQUISITOS</p>
-    <div class="m-body"  id="m-req"></div>
+    <p class="m-section">DESCRIPCIÓN / OBJETIVO</p>
+    <div class="m-body" id="m-desc"></div>
+    <p class="m-section">RESPONSABILIDADES</p>
+    <div class="m-body" id="m-resp"></div>
+    <p class="m-section">REQUISITOS EXCLUYENTES</p>
+    <div class="m-body" id="m-req-exc"></div>
+    <p class="m-section">REQUISITOS DESEABLES</p>
+    <div class="m-body" id="m-req-des"></div>
     <div class="m-footer">
       <a href="#talent-pool" class="btn-primary" onclick="applyFromModal()" data-i18n="m_apply">Postularme a esta posición →</a>
     </div>
@@ -597,8 +601,10 @@ function openModal(i) {
     (j.Seniority ? '<span class="job-tag">'+j.Seniority+'</span>' : '') +
     (j.Ubicación ? '<span class="job-tag">📍 '+j.Ubicación+'</span>' : '') +
     (j.Modalidad ? '<span class="job-tag">'+j.Modalidad+'</span>' : '');
-  document.getElementById('m-desc').textContent = j.Descripción||'—';
-  document.getElementById('m-req').textContent  = j.Requisitos||'—';
+  document.getElementById('m-desc').textContent    = j['Descripción']||j['Descripcion']||'—';
+  document.getElementById('m-resp').textContent    = j['Responsabilidades']||'—';
+  document.getElementById('m-req-exc').textContent = j['Req. Excluyentes']||j['Requisitos Excluyentes']||'—';
+  document.getElementById('m-req-des').textContent = j['Req. Deseables']||j['Requisitos Deseables']||'—';
   document.getElementById('modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
